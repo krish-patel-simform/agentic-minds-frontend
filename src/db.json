@@ -36,5 +36,98 @@
       "questions": 4,
       "interviewer": "Admin"
     }
+  ],
+  "candidates": [
+    {
+      "id": "1",
+      "name": "Tanishqua Bansal",
+      "email": "tanishqua.b@simform.com",
+      "position": "Junior Python Developer",
+      "phone": "+91 94265 61839",
+      "status": "Completed",
+      "appliedDate": "Jun 10, 2026",
+      "score": 6.5
+    },
+    {
+      "id": "2",
+      "name": "Mitang Shah",
+      "email": "mitang.s@gmail.com",
+      "position": "Junior Python Developer",
+      "phone": "+91 94265 61840",
+      "status": "Partial (Dropped)",
+      "appliedDate": "Jun 10, 2026"
+    },
+    {
+      "id": "3",
+      "name": "Aaksh Patel",
+      "email": "aaksh.p@gmail.com",
+      "position": "Junior Python Developer",
+      "phone": "+91 94265 61841",
+      "status": "Partial (Dropped)",
+      "appliedDate": "Jun 10, 2026"
+    },
+    {
+      "id": "4",
+      "name": "Devarsh Mehta",
+      "email": "devarsh.m@gmail.com",
+      "position": "Junior Python Developer",
+      "phone": "+91 94265 61842",
+      "status": "Pending",
+      "appliedDate": "Jun 09, 2026"
+    },
+    {
+      "id": "5",
+      "name": "Dhruv Patel",
+      "email": "dhruv.p@gmail.com",
+      "position": "Junior Python Developer",
+      "phone": "+91 94265 61843",
+      "status": "Scheduled",
+      "appliedDate": "Jun 09, 2026"
+    },
+    {
+      "id": "6",
+      "name": "Riya Sharma",
+      "email": "riya.sharma@techcorp.com",
+      "position": "Senior React Engineer",
+      "phone": "+91 98765 43210",
+      "status": "Scheduled",
+      "appliedDate": "Jun 12, 2026"
+    },
+    {
+      "id": "7",
+      "name": "Arjun Nair",
+      "email": "arjun.nair@gmail.com",
+      "position": "Senior React Engineer",
+      "phone": "+91 98765 43211",
+      "status": "Pending",
+      "appliedDate": "Jun 11, 2026"
+    },
+    {
+      "id": "8",
+      "name": "Snehal Joshi",
+      "email": "snehal.j@devops.io",
+      "position": "DevOps Engineer",
+      "phone": "+91 99001 12233",
+      "status": "Pending",
+      "appliedDate": "Jun 14, 2026"
+    },
+    {
+      "id": "9",
+      "name": "Karan Mehta",
+      "email": "karan.m@gmail.com",
+      "position": "DevOps Engineer",
+      "phone": "+91 99001 12234",
+      "status": "Partial (Dropped)",
+      "appliedDate": "Jun 13, 2026"
+    },
+    {
+      "id": "10",
+      "name": "Pooja Desai",
+      "email": "pooja.d@infra.ai",
+      "position": "DevOps Engineer",
+      "phone": "+91 99001 12235",
+      "status": "Pending",
+      "appliedDate": "Jun 12, 2026"
+    }
   ]
 }

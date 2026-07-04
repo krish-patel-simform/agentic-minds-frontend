@@ -1,4 +1,4 @@
-import type { JobPosition } from "../../../types/jobPosition.type";
+import type { JobPosition } from "../../types/jobPosition.type";
 
 interface JobCardProps {
   job: JobPosition;
