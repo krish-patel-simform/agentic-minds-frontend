@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import { authApi } from "../api/auth.api";
 import { ApiError } from "../api/axiosInstance";
 import { tokenStorage } from "../utils/tokenStorage";
@@ -63,10 +67,13 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(bootstrapSession.fulfilled, (state, action: PayloadAction<AuthUser>) => {
-        state.user = action.payload;
-        state.isInitializing = false;
-      })
+      .addCase(
+        bootstrapSession.fulfilled,
+        (state, action: PayloadAction<AuthUser>) => {
+          state.user = action.payload;
+          state.isInitializing = false;
+        },
+      )
       .addCase(bootstrapSession.rejected, (state) => {
         state.user = null;
         state.isInitializing = false;

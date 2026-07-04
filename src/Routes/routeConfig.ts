@@ -1,6 +1,7 @@
 import { type RouteObject } from "react-router";
 import { App } from "../App";
 import CandidatePage from "../Page/CandidatePage";
+import CandidateDetailPage from "../Page/CandidateDetailPage";
 import JobPositionPage from "../Page/JobPositionPage";
 import LoginPage from "../Page/LoginPage";
 import NotFoundPage from "../Page/NotFoundPage";
@@ -26,6 +27,10 @@ export const routeCongif: RouteObject[] = [
           {
             path: "candidates",
             Component: CandidatePage,
+          },
+          {
+            path: "candidates/:candidateId",
+            Component: CandidateDetailPage,
           },
           {
             path: "schedule-interview",
