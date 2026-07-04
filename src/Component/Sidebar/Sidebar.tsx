@@ -2,15 +2,29 @@ import {
   Briefcase,
   FileText,
   LayoutDashboard,
+  LogOut,
   Settings,
   Users,
   UserSearch,
   Video,
+  Headset,
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import type { SidebarSection } from "../../types/sidebar.type";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logout, selectUser } from "../../store/authSlice";
 
 export const Sidebar = () => {
-  const sections = [
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+    navigate("/login", { replace: true });
+  };
+
+  const sections: SidebarSection[] = [
     {
       label: "MAIN",
       items: [
@@ -18,6 +32,11 @@ export const Sidebar = () => {
         { name: "Candidates", icon: Users, path: "/candidates", badge: 3 },
         { name: "Screening Reports", icon: FileText, path: "/reports" },
         { name: "Interview Pipeline", icon: Video, path: "/pipeline" },
+        {
+          name: "Schedule Interview",
+          icon: Headset,
+          path: "/schedule-interview",
+        },
       ],
     },
     {
@@ -65,9 +84,22 @@ export const Sidebar = () => {
         ))}
       </div>
 
-      <div className="p-6 border-t border-gray-100">
-        <p className="text-sm font-bold text-slate-800">Admin User</p>
-        <p className="text-xs text-gray-400">admin@simrecruiter.ai</p>
+      <div className="p-6 border-t border-gray-100 flex items-center justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-sm font-bold text-slate-800 truncate">
+            {user?.full_name ?? "..."}
+          </p>
+          <p className="text-xs text-gray-400 truncate">{user?.email ?? ""}</p>
+        </div>
+        <button
+          type="button"
+          onClick={handleLogout}
+          aria-label="Log out"
+          title="Log out"
+          className="shrink-0 w-8 h-8 rounded-lg text-gray-400 hover:bg-rose-50 hover:text-rose-600 flex items-center justify-center transition-colors"
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </aside>
   );

@@ -6,13 +6,14 @@ import type {
   JobPositionFormData,
   JobStatus,
 } from "../../types/jobPosition.type";
-import CreateJobPositionModal from "./CreateJobPositionModal";
 import JobPositionDetail from "./JobPositionDetail";
 import { jobPositionApi } from "../../api/jobPosition.api";
 import { ApiError } from "../../api/axiosInstance";
 import JobPositionCard from "../Card/JobPositionCard";
 import ConfirmDialog from "../Modal/ConfirmDialog";
 import { getMockApplicantCount } from "../../utils/mockApplicants";
+import CreateJobPositionModal from "./JobPositionFormModal";
+import { useToast } from "../../hook/useToast";
 
 const PAGE_SIZE = 12;
 
@@ -79,6 +80,7 @@ function jobToFormData(job: JobPosition): JobPositionFormData {
 }
 
 const JobPositions = () => {
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<JobPosition[]>([]);
   const [total, setTotal] = useState(0);

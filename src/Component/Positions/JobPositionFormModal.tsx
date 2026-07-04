@@ -1,5 +1,4 @@
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { X } from "lucide-react";
 import type {
@@ -8,6 +7,7 @@ import type {
   JobStatus,
 } from "../../types/jobPosition.type";
 import SkillMultiSelect from "./SkillMultiSelect";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const EMPLOYMENT_TYPE_OPTIONS: { value: EmploymentType; label: string }[] = [
   { value: "full_time", label: "Full-time" },

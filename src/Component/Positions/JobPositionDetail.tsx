@@ -41,6 +41,7 @@ const JobPositionDetail = ({
   return (
     <div>
       <button
+        type="button"
         onClick={onBack}
         className="flex items-center gap-1 text-sm text-indigo-600 font-medium mb-4 hover:text-indigo-800"
       >
@@ -91,14 +92,14 @@ const JobPositionDetail = ({
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 grid grid-cols-4 gap-4 mb-6">
-        <div>
+      <div className="bg-white rounded-xl shadow-sm p-6 grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Experience
           </p>
           <p className="text-sm font-bold text-slate-700">{experienceRange}</p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Notice Period
           </p>
@@ -106,7 +107,7 @@ const JobPositionDetail = ({
             {job.expected_notice_period_days}d / {job.max_notice_period_days}d max
           </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Questions
           </p>
@@ -114,7 +115,7 @@ const JobPositionDetail = ({
             {job.questions_to_ask}
           </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Interviewer
           </p>

@@ -86,14 +86,14 @@ const JobPositionCard = ({
         {job.job_description || "No description provided."}
       </p>
 
-      <div className="grid grid-cols-4 gap-2 border-t pt-4">
-        <div>
+      <div className="grid grid-cols-2 gap-x-2 gap-y-3 border-t pt-4">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Experience
           </p>
           <p className="text-sm font-bold text-slate-700">{experienceRange}</p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Notice
           </p>
@@ -101,7 +101,7 @@ const JobPositionCard = ({
             {job.expected_notice_period_days}d / {job.max_notice_period_days}d
           </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Questions
           </p>
@@ -109,7 +109,7 @@ const JobPositionCard = ({
             {job.questions_to_ask}
           </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Interviewer
           </p>

@@ -3,6 +3,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { config } from "../config";
 import type { Candidate, CandidateStatus } from "../types/candidate.type";
 import CandidateCard from "../Component/Card/CandidateCard";
+import Loader from "../Component/Loader/Loader";
 
 const TABS: { label: string; value: CandidateStatus | "All" }[] = [
   { label: "All", value: "All" },
@@ -69,7 +70,7 @@ const CandidatePage = () => {
   }, [candidates]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader label="Loading candidates..." fullPage />;
   }
 
   return (
@@ -86,6 +87,7 @@ const CandidatePage = () => {
         <div className="flex gap-2 flex-wrap">
           {TABS.map((tab) => (
             <button
+              type="button"
               key={tab.value}
               onClick={() => setActiveTab(tab.value)}
               className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
