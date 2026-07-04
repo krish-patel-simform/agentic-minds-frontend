@@ -14,34 +14,45 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
-    if: github.event.action != 'closed'
-    uses: ./.github/workflows/_reusable/build.yml
-    with:
-      environment: dev
-    secrets:
-      VITE_JSON_SERVER_BASE_URL: ${{ secrets.DEV_VITE_JSON_SERVER_BASE_URL }}
-      VITE_API_BASE_URL: ${{ secrets.DEV_VITE_API_BASE_URL }}
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+        if: github.event.action != 'closed'
 
-  deploy-preview:
-    if: github.event.action != 'closed'
-    needs: build
-    uses: ./.github/workflows/_reusable/deploy-swa.yml
-    with:
-      environment: dev
-      artifact-name: ${{ needs.build.outputs.artifact-name }}
-      deployment-environment-name: pr-${{ github.event.pull_request.number }}
-      action: upload
-    secrets:
-      AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.DEV_AZURE_STATIC_WEB_APPS_API_TOKEN }}
+      - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
+        with:
+          node-version: '20.x'
+          cache: 'npm'
 
-  close-preview:
-    if: github.event.action == 'closed'
-    uses: ./.github/workflows/_reusable/deploy-swa.yml
-    with:
-      environment: dev
-      artifact-name: 'unused'
-      deployment-environment-name: pr-${{ github.event.pull_request.number }}
-      action: close
-    secrets:
-      AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.DEV_AZURE_STATIC_WEB_APPS_API_TOKEN }}
+      - run: npm ci
+        if: github.event.action != 'closed'
+
+      - run: npm run build
+        if: github.event.action != 'closed'
+        env:
+          VITE_JSON_SERVER_BASE_URL: ${{ secrets.DEV_VITE_JSON_SERVER_BASE_URL }}
+          VITE_API_BASE_URL: ${{ secrets.DEV_VITE_API_BASE_URL }}
+
+      - name: Deploy preview
+        if: github.event.action != 'closed'
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.DEV_AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ github.token }}
+          action: upload
+          app_location: 'dist'
+          output_location: ''
+          skip_app_build: true
+          deployment_environment: pr-${{ github.event.pull_request.number }}
+
+      - name: Close preview
+        if: github.event.action == 'closed'
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.DEV_AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: close
+          deployment_environment: pr-${{ github.event.pull_request.number }}
