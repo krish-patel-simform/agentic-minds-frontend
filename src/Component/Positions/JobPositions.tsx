@@ -4,10 +4,10 @@ import type {
   JobPosition,
   JobPositionFormData,
 } from "../../types/jobPosition.type";
-import JobPositionCard from "../Card/JobPositionCard/JobPositionCard";
 import CreateJobPositionModal from "./CreateJobPositionModal";
 import JobPositionDetail from "./JobPositionDetail";
 import { jobPositionApi } from "../../api/jobPosition.api";
+import JobPositionCard from "../Card/JobPositionCard";
 
 const JobPositions = () => {
   const [loading, setLoading] = useState(false);
