@@ -104,7 +104,7 @@ const SkillMultiSelect = ({
           onBlur={() => setTimeout(() => setIsOpen(false), 150)}
           onKeyDown={handleKeyDown}
           placeholder={value.length === 0 ? placeholder : ""}
-          className="flex-1 min-w-[100px] outline-none py-0.5"
+          className="flex-1 min-w-25 outline-none py-0.5"
         />
       </div>
 
