@@ -11,16 +11,19 @@ interface JobPositionDetailProps {
   job: JobPosition;
   onBack: () => void;
   onCreateNew: () => void;
+  onEdit: () => void;
 }
 
 const JobPositionDetail = ({
   job,
   onBack,
   onCreateNew,
+  onEdit,
 }: JobPositionDetailProps) => {
   return (
     <div>
       <button
+        type="button"
         onClick={onBack}
         className="flex items-center gap-1 text-sm text-indigo-600 font-medium mb-4 hover:text-indigo-800"
       >
@@ -34,10 +37,15 @@ const JobPositionDetail = ({
           <p className="text-gray-500 text-sm mt-1">{job.description}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <button className="px-4 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-slate-600 hover:bg-gray-50">
+          <button
+            type="button"
+            onClick={onEdit}
+            className="px-4 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-slate-600 hover:bg-gray-50"
+          >
             Edit Position
           </button>
           <button
+            type="button"
             onClick={onCreateNew}
             className="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold text-sm transition-colors"
           >
@@ -47,32 +55,36 @@ const JobPositionDetail = ({
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6 grid grid-cols-4 gap-4 mb-6">
-        <div>
+      <div className="bg-white rounded-xl shadow-sm p-6 grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Experience
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.experience}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.experience}
+          </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Notice Period
           </p>
-          <p className="text-sm font-bold text-slate-700">
+          <p className="text-sm font-bold text-slate-700 truncate">
             {job.noticePeriod}
           </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Questions
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.questions}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.questions}
+          </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Interviewer
           </p>
-          <p className="text-sm font-bold text-slate-700">
+          <p className="text-sm font-bold text-slate-700 truncate">
             {job.interviewer}
           </p>
         </div>

@@ -12,11 +12,13 @@ import {
 } from "../utils/date";
 import { generateTimeSlots } from "../utils/timeSlots";
 import { SchedulingConst } from "../const";
+import { useToast } from "../hook/useToast";
 
 const MAX_BOOKING_WINDOW_DAYS = 30;
 const { BOOKED_SLOTS } = SchedulingConst;
 
 const ScheduleInterviewPage = () => {
+  const { showToast } = useToast();
   const today = useMemo(() => startOfDay(new Date()), []);
   const maxDate = useMemo(
     () => addDays(today, MAX_BOOKING_WINDOW_DAYS),
@@ -46,10 +48,12 @@ const ScheduleInterviewPage = () => {
       return;
     if (BOOKED_SLOTS.includes(selectedSlot)) return;
 
-    console.log("Interview scheduled", {
-      date: formatDateLabel(selectedDate),
-      slot: selectedSlot,
-    });
+    showToast(
+      `Interview scheduled for ${formatDateLabel(selectedDate)} at ${selectedSlot}.`,
+      "success",
+    );
+    setSelectedDate(null);
+    setSelectedSlot(null);
   };
 
   return (

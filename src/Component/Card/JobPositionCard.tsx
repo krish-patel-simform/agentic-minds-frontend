@@ -24,7 +24,7 @@ const JobPositionCard = ({ job, isSelected = false, onClick }: JobCardProps) => 
         </div>
       </div>
 
-      <div className="flex gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         {job?.tags?.map((tag) => (
           <span
             key={tag}
@@ -42,30 +42,38 @@ const JobPositionCard = ({ job, isSelected = false, onClick }: JobCardProps) => 
         {job.description}
       </p>
 
-      <div className="grid grid-cols-4 gap-2 border-t pt-4">
-        <div>
+      <div className="grid grid-cols-2 gap-x-2 gap-y-3 border-t pt-4">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Experience
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.experience}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.experience}
+          </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Notice
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.noticePeriod}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.noticePeriod}
+          </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Questions
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.questions}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.questions}
+          </p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Interviewer
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.interviewer}</p>
+          <p className="text-sm font-bold text-slate-700 truncate">
+            {job.interviewer}
+          </p>
         </div>
       </div>
     </div>

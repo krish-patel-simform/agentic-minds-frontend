@@ -1,10 +1,13 @@
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { X } from "lucide-react";
-import type { JobPositionFormData } from "../../types/jobPosition.type";
+import type {
+  JobPosition,
+  JobPositionFormData,
+} from "../../types/jobPosition.type";
 import ScreeningQuestionsInput from "./ScreeningQuestionsInput";
 import SkillMultiSelect from "./SkillMultiSelect";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const EXPERIENCE_OPTIONS = ["0-2 years", "2-4 years", "4-8 years", "8+ years"];
 
@@ -37,19 +40,41 @@ const DEFAULT_QUESTIONS = [
   },
   {
     id: crypto.randomUUID(),
-    question: "How do you approach debugging a production issue under pressure?",
+    question:
+      "How do you approach debugging a production issue under pressure?",
   },
 ];
 
-interface CreateJobPositionModalProps {
-  onClose: () => void;
-  onCreate: (data: JobPositionFormData) => void;
+function withCurrentOption(options: string[], current?: string): string[] {
+  if (!current || options.includes(current)) return options;
+  return [current, ...options];
 }
 
-const CreateJobPositionModal = ({
+function stripNoticeSuffix(noticePeriod: string): string {
+  return noticePeriod.replace(/\s*max$/i, "").trim();
+}
+
+interface JobPositionFormModalProps {
+  job?: JobPosition;
+  onClose: () => void;
+  onSubmit: (data: JobPositionFormData) => void;
+}
+
+const JobPositionFormModal = ({
+  job,
   onClose,
-  onCreate,
-}: CreateJobPositionModalProps) => {
+  onSubmit: onFormSubmit,
+}: JobPositionFormModalProps) => {
+  const isEditMode = Boolean(job);
+  const initialNoticePeriod = job
+    ? stripNoticeSuffix(job.noticePeriod)
+    : NOTICE_PERIOD_OPTIONS[1];
+  const initialPrimarySkills = job?.tags?.length
+    ? job.tags
+    : job?.tech
+      ? [job.tech]
+      : [];
+
   const {
     register,
     handleSubmit,
@@ -58,18 +83,26 @@ const CreateJobPositionModal = ({
   } = useForm<JobPositionFormValues>({
     resolver: zodResolver(jobPositionSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      primarySkills: [],
-      experience: EXPERIENCE_OPTIONS[2],
-      noticePeriod: NOTICE_PERIOD_OPTIONS[1],
-      interviewer: INTERVIEWER_OPTIONS[1],
-      screeningQuestions: DEFAULT_QUESTIONS,
+      title: job?.title ?? "",
+      description: job?.description ?? "",
+      primarySkills: initialPrimarySkills,
+      experience: job?.experience ?? EXPERIENCE_OPTIONS[2],
+      noticePeriod: initialNoticePeriod,
+      interviewer: job?.interviewer ?? INTERVIEWER_OPTIONS[1],
+      screeningQuestions: job?.screeningQuestions.length
+        ? job.screeningQuestions
+        : DEFAULT_QUESTIONS,
     },
   });
 
+  const experienceOptions = withCurrentOption(EXPERIENCE_OPTIONS, job?.experience);
+  const noticePeriodOptions = withCurrentOption(
+    NOTICE_PERIOD_OPTIONS,
+    initialNoticePeriod,
+  );
+
   const onSubmit = (values: JobPositionFormValues) => {
-    onCreate({
+    onFormSubmit({
       title: values.title.trim(),
       description: values.description.trim(),
       primarySkills: values.primarySkills,
@@ -90,7 +123,7 @@ const CreateJobPositionModal = ({
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-bold text-slate-800">
-            Create Job Position
+            {isEditMode ? "Edit Job Position" : "Create Job Position"}
           </h2>
           <button
             type="button"
@@ -165,7 +198,7 @@ const CreateJobPositionModal = ({
                 {...register("experience")}
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                {EXPERIENCE_OPTIONS.map((option) => (
+                {experienceOptions.map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
@@ -183,7 +216,7 @@ const CreateJobPositionModal = ({
                 {...register("noticePeriod")}
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                {NOTICE_PERIOD_OPTIONS.map((option) => (
+                {noticePeriodOptions.map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
@@ -231,7 +264,7 @@ const CreateJobPositionModal = ({
             type="submit"
             className="px-4 py-2 rounded-lg bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold transition-colors"
           >
-            Create Position
+            {isEditMode ? "Save Changes" : "Create Position"}
           </button>
         </div>
       </form>
@@ -239,4 +272,4 @@ const CreateJobPositionModal = ({
   );
 };
 
-export default CreateJobPositionModal;
+export default JobPositionFormModal;

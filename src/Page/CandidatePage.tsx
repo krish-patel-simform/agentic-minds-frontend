@@ -87,6 +87,7 @@ const CandidatePage = () => {
         <div className="flex gap-2 flex-wrap">
           {TABS.map((tab) => (
             <button
+              type="button"
               key={tab.value}
               onClick={() => setActiveTab(tab.value)}
               className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${

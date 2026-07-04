@@ -10,7 +10,12 @@ interface ToastProps {
 
 const TOAST_STYLES: Record<
   ToastType,
-  { icon: ComponentType<{ size?: number; className?: string }>; iconColor: string; bg: string; border: string }
+  {
+    icon: ComponentType<{ size?: number; className?: string }>;
+    iconColor: string;
+    bg: string;
+    border: string;
+  }
 > = {
   success: {
     icon: CheckCircle2,

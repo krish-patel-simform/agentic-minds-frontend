@@ -52,7 +52,10 @@ const CandidateCard = ({ candidate }: CandidateCardProps) => {
         {candidate.score !== undefined ? `${candidate.score}/10` : "—"}
       </td>
       <td className="py-4 px-6">
-        <button className="text-sm font-semibold text-indigo-700 hover:text-indigo-900">
+        <button
+          type="button"
+          className="text-sm font-semibold text-indigo-700 hover:text-indigo-900"
+        >
           View report
         </button>
       </td>
