@@ -1,12 +1,19 @@
+import { Trash2 } from "lucide-react";
 import type { JobPosition } from "../../types/jobPosition.type";
 
 interface JobCardProps {
   job: JobPosition;
   isSelected?: boolean;
   onClick?: () => void;
+  onDelete?: () => void;
 }
 
-const JobPositionCard = ({ job, isSelected = false, onClick }: JobCardProps) => {
+const JobPositionCard = ({
+  job,
+  isSelected = false,
+  onClick,
+  onDelete,
+}: JobCardProps) => {
   return (
     <div
       onClick={onClick}
@@ -14,7 +21,20 @@ const JobPositionCard = ({ job, isSelected = false, onClick }: JobCardProps) => 
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-lg font-bold text-slate-800">{job.title}</h3>
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-end gap-1">
+          {onDelete && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              className="text-gray-300 hover:text-rose-500 transition-colors"
+              aria-label={`Delete ${job.title}`}
+            >
+              <Trash2 size={16} color="red" />
+            </button>
+          )}
           <span className="text-2xl font-bold text-indigo-900">
             {job.applicants}
           </span>

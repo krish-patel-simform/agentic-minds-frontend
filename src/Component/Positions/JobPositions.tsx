@@ -8,6 +8,7 @@ import CreateJobPositionModal from "./CreateJobPositionModal";
 import JobPositionDetail from "./JobPositionDetail";
 import { jobPositionApi } from "../../api/jobPosition.api";
 import JobPositionCard from "../Card/JobPositionCard";
+import ConfirmDialog from "../Modal/ConfirmDialog";
 
 const JobPositions = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,8 @@ const JobPositions = () => {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<JobPosition | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const selectedJob = jobData?.find((job) => job.id === selectedJobId) ?? null;
   const totalCandidates = jobData?.reduce(
@@ -71,12 +74,29 @@ const JobPositions = () => {
     }
   }
 
+  async function handleDelete() {
+    if (!deleteTarget) return;
+    setIsDeleting(true);
+    try {
+      await jobPositionApi.remove(deleteTarget.id);
+      setJobData((prev) =>
+        prev ? prev.filter((job) => job.id !== deleteTarget.id) : prev,
+      );
+      setDeleteTarget(null);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error);
+      }
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   if (selectedJob) {
     return (
       <JobPositionDetail
         job={selectedJob}
         onBack={() => setSelectedJobId(null)}
-        onCreateNew={() => setIsModalOpen(true)}
       />
     );
   }
@@ -114,6 +134,7 @@ const JobPositions = () => {
               key={job.id}
               job={job}
               onClick={() => setSelectedJobId(job.id)}
+              onDelete={() => setDeleteTarget(job)}
             />
           ))}
         </div>
@@ -123,6 +144,17 @@ const JobPositions = () => {
         <CreateJobPositionModal
           onClose={() => setIsModalOpen(false)}
           onCreate={handleCreate}
+        />
+      )}
+
+      {deleteTarget && (
+        <ConfirmDialog
+          title="Delete job position?"
+          message={`This will permanently remove "${deleteTarget.title}" and its screening questions. This action cannot be undone.`}
+          confirmLabel="Delete"
+          isConfirming={isDeleting}
+          onConfirm={handleDelete}
+          onCancel={() => setDeleteTarget(null)}
         />
       )}
     </div>

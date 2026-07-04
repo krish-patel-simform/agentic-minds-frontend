@@ -327,32 +327,6 @@
         }
       ],
       "applicantsList": []
-    },
-    {
-      "id": "1wUn3nSePaM",
-      "title": "gfdcfkhgkj",
-      "tech": "Python",
-      "tags": [
-        "Python"
-      ],
-      "status": "Active",
-      "applicants": 0,
-      "description": "hgdffkhj",
-      "experience": "4-8 years",
-      "noticePeriod": "30 days max",
-      "questions": 2,
-      "interviewer": "Gwen",
-      "screeningQuestions": [
-        {
-          "id": "d2ca6b3c-ee51-4d75-ae4a-5795f66cd300",
-          "question": "Can you describe your experience with the primary tech stack for this role?"
-        },
-        {
-          "id": "106319b4-86fd-49a6-9962-0cee3ee9e0f5",
-          "question": "How do you approach debugging a production issue under pressure?"
-        }
-      ],
-      "applicantsList": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

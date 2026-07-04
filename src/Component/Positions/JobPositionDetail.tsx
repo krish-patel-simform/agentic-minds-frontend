@@ -1,4 +1,4 @@
-import { ArrowLeft, ExternalLink, Plus } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { Applicant, JobPosition } from "../../types/jobPosition.type";
 
 const STATUS_STYLES: Record<Applicant["status"], string> = {
@@ -10,14 +10,9 @@ const STATUS_STYLES: Record<Applicant["status"], string> = {
 interface JobPositionDetailProps {
   job: JobPosition;
   onBack: () => void;
-  onCreateNew: () => void;
 }
 
-const JobPositionDetail = ({
-  job,
-  onBack,
-  onCreateNew,
-}: JobPositionDetailProps) => {
+const JobPositionDetail = ({ job, onBack }: JobPositionDetailProps) => {
   return (
     <div>
       <button
@@ -36,13 +31,6 @@ const JobPositionDetail = ({
         <div className="flex items-center gap-3 shrink-0">
           <button className="px-4 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-slate-600 hover:bg-gray-50">
             Edit Position
-          </button>
-          <button
-            onClick={onCreateNew}
-            className="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold text-sm transition-colors"
-          >
-            <Plus size={16} />
-            New Position
           </button>
         </div>
       </div>
