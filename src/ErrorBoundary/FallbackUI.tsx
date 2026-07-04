@@ -39,7 +39,7 @@ const FallbackUI: React.FC<FallbackUIProps> = ({ error, resetError }) => {
           {error && (
             <div className="mb-8 bg-gray-50 rounded-lg p-4 border border-gray-100 overflow-x-auto shadow-inner">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Error details</p>
-              <pre className="text-xs text-red-600 font-mono whitespace-pre-wrap break-words">
+              <pre className="text-xs text-red-600 font-mono whitespace-pre-wrap wrap-break-word">
                 {error.toString()}
               </pre>
             </div>

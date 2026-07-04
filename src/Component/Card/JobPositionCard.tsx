@@ -3,11 +3,13 @@ import type { JobPosition } from "../../types/jobPosition.type";
 interface JobCardProps {
   job: JobPosition;
   isSelected?: boolean;
+  onClick?: () => void;
 }
 
-const JobPositionCard = ({ job, isSelected = false }: JobCardProps) => {
+const JobPositionCard = ({ job, isSelected = false, onClick }: JobCardProps) => {
   return (
     <div
+      onClick={onClick}
       className={`bg-white p-6 rounded-xl border-2 transition-all cursor-pointer hover:shadow-md ${isSelected ? "border-indigo-600" : "border-transparent shadow-sm"}`}
     >
       <div className="flex justify-between items-start mb-2">
