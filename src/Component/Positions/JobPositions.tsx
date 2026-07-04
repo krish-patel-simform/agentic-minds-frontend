@@ -13,7 +13,6 @@ import JobPositionCard from "../Card/JobPositionCard";
 import ConfirmDialog from "../Modal/ConfirmDialog";
 import { getMockApplicantCount } from "../../utils/mockApplicants";
 import CreateJobPositionModal from "./JobPositionFormModal";
-import { useToast } from "../../hook/useToast";
 
 const PAGE_SIZE = 12;
 
