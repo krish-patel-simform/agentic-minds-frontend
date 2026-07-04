@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Plus, Search } from "lucide-react";
 import type {
   JobPosition,
@@ -6,7 +7,6 @@ import type {
   JobPositionFormData,
   JobStatus,
 } from "../../types/jobPosition.type";
-import JobPositionDetail from "./JobPositionDetail";
 import { jobPositionApi } from "../../api/jobPosition.api";
 import { ApiError } from "../../api/axiosInstance";
 import JobPositionCard from "../Card/JobPositionCard";
@@ -53,32 +53,8 @@ function mapFormToCreateRequest(
   };
 }
 
-function jobToFormData(job: JobPosition): JobPositionFormData {
-  return {
-    title: job.title,
-    jobDescription: job.job_description ?? "",
-    responsibilities: job.responsibilities ?? "",
-    requirements: job.requirements ?? "",
-    department: job.department ?? "",
-    location: job.location ?? "",
-    domain: job.domain ?? "",
-    companyName: job.company_name ?? "",
-    employmentType: job.employment_type,
-    skills: job.skills ?? [],
-    minExperienceYears: job.min_experience_years,
-    maxExperienceYears: job.max_experience_years,
-    salaryMin: job.salary_min,
-    salaryMax: job.salary_max,
-    salaryCurrency: job.salary_currency,
-    expectedNoticePeriodDays: job.expected_notice_period_days,
-    maxNoticePeriodDays: job.max_notice_period_days,
-    interviewerName: job.interviewer_name ?? "",
-    questionsToAsk: job.questions_to_ask,
-    status: job.status,
-  };
-}
-
 const JobPositions = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<JobPosition[]>([]);
   const [total, setTotal] = useState(0);
@@ -89,17 +65,11 @@ const JobPositions = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingJob, setEditingJob] = useState<JobPosition | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<JobPosition | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [archiveTarget, setArchiveTarget] = useState<JobPosition | null>(null);
-  const [isArchiving, setIsArchiving] = useState(false);
-  const [isChangingStatus, setIsChangingStatus] = useState(false);
 
-  const selectedJob = items.find((job) => job.id === selectedJobId) ?? null;
   const pageApplicants = items.reduce(
     (sum, job) => sum + getMockApplicantCount(job.id),
     0,
@@ -154,24 +124,6 @@ const JobPositions = () => {
     }
   }
 
-  async function handleEditSubmit(data: JobPositionFormData) {
-    if (!editingJob || isSubmitting) return;
-    setIsSubmitting(true);
-    try {
-      const { status: _status, ...updatePayload } = mapFormToCreateRequest(data);
-      void _status;
-      const updated = await jobPositionApi.update(editingJob.id, updatePayload);
-      setItems((prev) =>
-        prev.map((job) => (job.id === updated.id ? updated : job)),
-      );
-      setEditingJob(null);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to update job position.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
   async function handleDelete() {
     if (!deleteTarget || isDeleting) return;
     setIsDeleting(true);
@@ -185,71 +137,6 @@ const JobPositions = () => {
     } finally {
       setIsDeleting(false);
     }
-  }
-
-  async function handleArchive() {
-    if (!archiveTarget || isArchiving) return;
-    setIsArchiving(true);
-    try {
-      const archived = await jobPositionApi.archive(archiveTarget.id);
-      setItems((prev) =>
-        prev.map((job) => (job.id === archived.id ? archived : job)),
-      );
-      setArchiveTarget(null);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to archive job position.");
-    } finally {
-      setIsArchiving(false);
-    }
-  }
-
-  async function handleStatusChange(status: JobStatus) {
-    if (!selectedJob || isChangingStatus) return;
-    setIsChangingStatus(true);
-    try {
-      const updated = await jobPositionApi.changeStatus(selectedJob.id, { status });
-      setItems((prev) =>
-        prev.map((job) => (job.id === updated.id ? updated : job)),
-      );
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to change job status.");
-    } finally {
-      setIsChangingStatus(false);
-    }
-  }
-
-  if (selectedJob) {
-    return (
-      <>
-        <JobPositionDetail
-          job={selectedJob}
-          onBack={() => setSelectedJobId(null)}
-          onEdit={() => setEditingJob(selectedJob)}
-          onArchiveRequest={() => setArchiveTarget(selectedJob)}
-          onStatusChange={handleStatusChange}
-          isChangingStatus={isChangingStatus}
-        />
-        {editingJob && (
-          <CreateJobPositionModal
-            mode="edit"
-            initialValues={jobToFormData(editingJob)}
-            onClose={() => setEditingJob(null)}
-            onSubmit={handleEditSubmit}
-            isSubmitting={isSubmitting}
-          />
-        )}
-        {archiveTarget && (
-          <ConfirmDialog
-            title="Archive job position?"
-            message={`"${archiveTarget.title}" will be moved to archived status. You can still view it, but it will no longer accept applicants.`}
-            confirmLabel="Archive"
-            isConfirming={isArchiving}
-            onConfirm={handleArchive}
-            onCancel={() => setArchiveTarget(null)}
-          />
-        )}
-      </>
-    );
   }
 
   return (
@@ -332,7 +219,7 @@ const JobPositions = () => {
               <JobPositionCard
                 key={job.id}
                 job={job}
-                onClick={() => setSelectedJobId(job.id)}
+                onClick={() => navigate(`/jobs/${job.id}`)}
                 onDelete={() => setDeleteTarget(job)}
               />
             ))}
