@@ -1,0 +1,40 @@
+{
+  "jobs": [
+    {
+      "id": "1",
+      "title": "Junior Python Developer",
+      "tech": "Python",
+      "status": "Active",
+      "applicants": 5,
+      "description": "Entry-level Python role building backend services and APIs for our data platform team.",
+      "experience": "0-5 yrs",
+      "noticePeriod": "30d / 60d max",
+      "questions": 5,
+      "interviewer": "Gwen"
+    },
+    {
+      "id": "2",
+      "title": "Senior React Engineer",
+      "tech": "React",
+      "status": "Active",
+      "applicants": 2,
+      "description": "Lead frontend development for our SaaS platform with React, TypeScript and a modern component system.",
+      "experience": "4-8 yrs",
+      "noticePeriod": "30d / 90d max",
+      "questions": 4,
+      "interviewer": "Priya"
+    },
+    {
+      "id": "3",
+      "title": "DevOps Engineer",
+      "tech": "Kubernetes",
+      "status": "Active",
+      "applicants": 3,
+      "description": "Own our CI/CD pipeline and cloud infrastructure on Azure, ensuring reliability and developer velocity.",
+      "experience": "3-7 yrs",
+      "noticePeriod": "30d / 60d max",
+      "questions": 4,
+      "interviewer": "Admin"
+    }
+  ]
+}
