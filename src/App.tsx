@@ -1,7 +1,11 @@
-import React from 'react'
+import DashboardPage from "./Page/DashboardPage";
+import HeaderPage from "./Page/HeaderPage";
 
 export const App = () => {
   return (
-    <div className='border'>App</div>
-  )
-}
+    <>
+      <HeaderPage />
+      <DashboardPage />
+    </>
+  );
+};
