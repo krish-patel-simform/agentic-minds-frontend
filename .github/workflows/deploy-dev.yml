@@ -1,0 +1,32 @@
+name: Deploy - Dev
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/_reusable/build.yml
+    with:
+      environment: dev
+    secrets:
+      VITE_JSON_SERVER_BASE_URL: ${{ secrets.DEV_VITE_JSON_SERVER_BASE_URL }}
+      VITE_API_BASE_URL: ${{ secrets.DEV_VITE_API_BASE_URL }}
+
+  deploy:
+    needs: build
+    uses: ./.github/workflows/_reusable/deploy-swa.yml
+    with:
+      environment: dev
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
+      action: upload
+    secrets:
+      AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.DEV_AZURE_STATIC_WEB_APPS_API_TOKEN }}
