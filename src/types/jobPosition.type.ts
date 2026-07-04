@@ -32,7 +32,7 @@ export interface JobPosition {
 export interface JobPositionFormData {
   title: string;
   description: string;
-  primarySkill: string;
+  primarySkills: string[];
   experience: string;
   noticePeriod: string;
   interviewer: string;

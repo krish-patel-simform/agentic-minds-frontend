@@ -10,7 +10,9 @@
       "experience": "0-5 yrs",
       "noticePeriod": "30d / 60d max",
       "questions": 5,
-      "interviewer": "Gwen"
+      "interviewer": "Gwen",
+      "screeningQuestions": [],
+      "applicantsList": []
     },
     {
       "id": "2",
@@ -22,7 +24,9 @@
       "experience": "4-8 yrs",
       "noticePeriod": "30d / 90d max",
       "questions": 4,
-      "interviewer": "Priya"
+      "interviewer": "Priya",
+      "screeningQuestions": [],
+      "applicantsList": []
     },
     {
       "id": "3",
@@ -34,7 +38,216 @@
       "experience": "3-7 yrs",
       "noticePeriod": "30d / 60d max",
       "questions": 4,
-      "interviewer": "Admin"
+      "interviewer": "Admin",
+      "screeningQuestions": [
+        {
+          "id": "q1",
+          "question": "Describe how you would set up a production-ready Kubernetes cluster on Azure."
+        },
+        {
+          "id": "q2",
+          "question": "Walk me through your ideal CI/CD pipeline design using GitHub Actions."
+        }
+      ],
+      "applicantsList": [
+        {
+          "id": "a1",
+          "name": "Snehal Joshi",
+          "email": "snehal.j@devops.io",
+          "phone": "+91 99001 12233",
+          "status": "Pending",
+          "appliedDate": "Jun 14, 2026",
+          "score": null
+        },
+        {
+          "id": "a2",
+          "name": "Karan Mehta",
+          "email": "karan.m@gmail.com",
+          "phone": "+91 99001 12234",
+          "status": "Partial (Dropped)",
+          "appliedDate": "Jun 13, 2026",
+          "score": null
+        },
+        {
+          "id": "a3",
+          "name": "Pooja Desai",
+          "email": "pooja.d@infra.ai",
+          "phone": "+91 99001 12235",
+          "status": "Pending",
+          "appliedDate": "Jun 12, 2026",
+          "score": null
+        }
+      ]
+    },
+    {
+      "id": "oNXR135F_0M",
+      "title": "React Trainee",
+      "tech": "React",
+      "tags": [
+        "React"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "Should be able to perform better in interview not in training just in interview. Once you have selected in interview you do not have to care about coordinator.",
+      "experience": "0-2 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "bd4fde46-1287-4e10-8c31-d52dab43b5a8",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "4f4d87f2-2e68-449d-bfd7-0ae3a667f007",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
+    },
+    {
+      "id": "p-g3Pc9DBmQ",
+      "title": "vbcgbsfd",
+      "tech": "gfdsg",
+      "tags": [
+        "gfdsg"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "gfdshgsfd",
+      "experience": "4-8 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "b52db338-47d4-4e87-a2e8-7085fcde47e0",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "7df99026-882b-49f7-9403-08d48a57f7b0",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
+    },
+    {
+      "id": "fcZZyES5ses",
+      "title": "rgdfgdf",
+      "tech": "estfsdgtf",
+      "tags": [
+        "estfsdgtf"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "dfgdfyhf",
+      "experience": "4-8 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "3157a839-d134-46ad-9ac7-7398ea4c2ea4",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "9adf7cef-2588-4af7-a228-4d1c096e43c4",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
+    },
+    {
+      "id": "VbL83f23wcg",
+      "title": "dfsd",
+      "tech": "fdfds",
+      "tags": [
+        "fdfds"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "fdsfd",
+      "experience": "4-8 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "bf2b8d3d-8adb-400e-a18d-41c4d8433a48",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "9199d981-6db5-4451-ac0a-1a021d13eb67",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
+    },
+    {
+      "id": "A7Zko0EhXbM",
+      "title": "sdgfadg",
+      "tech": "React",
+      "tags": [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "DevOps",
+        "Azure",
+        "SQL",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "JavaScript",
+        "Java",
+        "Go",
+        "GraphQL"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "sadgsfdagafdg",
+      "experience": "4-8 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "7bd84a6d-3e73-4ea2-9d4f-53e02448dc03",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "a82a8083-38ad-4bbb-82c4-7c9a725ba3b7",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
+    },
+    {
+      "id": "KCqiAm9hGX4",
+      "title": "sdgfdh",
+      "tech": "Python",
+      "tags": [
+        "Python",
+        "Node.js"
+      ],
+      "status": "Active",
+      "applicants": 0,
+      "description": "asdgfdg",
+      "experience": "4-8 years",
+      "noticePeriod": "30 days max",
+      "questions": 2,
+      "interviewer": "Gwen",
+      "screeningQuestions": [
+        {
+          "id": "93cd7a56-ef9a-41c9-88ac-0569a1de5cbd",
+          "question": "Can you describe your experience with the primary tech stack for this role?"
+        },
+        {
+          "id": "a1151ed7-7a8f-4db6-95b7-168c62e54283",
+          "question": "How do you approach debugging a production issue under pressure?"
+        }
+      ],
+      "applicantsList": []
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
