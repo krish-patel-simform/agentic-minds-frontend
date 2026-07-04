@@ -3,6 +3,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { config } from "../config";
 import type { Candidate, CandidateStatus } from "../types/candidate.type";
 import CandidateCard from "../Component/Card/CandidateCard";
+import Loader from "../Component/Loader/Loader";
 
 const TABS: { label: string; value: CandidateStatus | "All" }[] = [
   { label: "All", value: "All" },
@@ -69,7 +70,7 @@ const CandidatePage = () => {
   }, [candidates]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader label="Loading candidates..." fullPage />;
   }
 
   return (

@@ -3,6 +3,7 @@ import type { JobPosition } from "../types/jobPosition.type";
 import { useEffect, useState } from "react";
 import { config } from "../config";
 import JobPositionCard from "../Component/Card/JobPositionCard";
+import Loader from "../Component/Loader/Loader";
 
 const JobPositionPage = () => {
   const [loading, setLoading] = useState(false);
@@ -39,7 +40,7 @@ const JobPositionPage = () => {
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader label="Loading job positions..." fullPage />;
   }
 
   return (
@@ -61,7 +62,6 @@ const JobPositionPage = () => {
         {jobData
           ? jobData.map((job) => <JobPositionCard key={job.id} job={job} />)
           : null}
-        {}
       </div>
     </div>
   );

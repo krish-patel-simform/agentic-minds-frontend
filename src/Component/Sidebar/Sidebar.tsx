@@ -6,11 +6,13 @@ import {
   Users,
   UserSearch,
   Video,
+  Headset,
 } from "lucide-react";
 import { NavLink } from "react-router";
+import type { SidebarSection } from "../../types/sidebar.type";
 
 export const Sidebar = () => {
-  const sections = [
+  const sections: SidebarSection[] = [
     {
       label: "MAIN",
       items: [
@@ -18,6 +20,11 @@ export const Sidebar = () => {
         { name: "Candidates", icon: Users, path: "/candidates", badge: 3 },
         { name: "Screening Reports", icon: FileText, path: "/reports" },
         { name: "Interview Pipeline", icon: Video, path: "/pipeline" },
+        {
+          name: "Schedule Interview",
+          icon: Headset,
+          path: "/schedule-interview",
+        },
       ],
     },
     {
