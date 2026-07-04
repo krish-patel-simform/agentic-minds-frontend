@@ -80,7 +80,6 @@ function jobToFormData(job: JobPosition): JobPositionFormData {
 }
 
 const JobPositions = () => {
-  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<JobPosition[]>([]);
   const [total, setTotal] = useState(0);
@@ -102,8 +101,6 @@ const JobPositions = () => {
   const [isChangingStatus, setIsChangingStatus] = useState(false);
 
   const selectedJob = items.find((job) => job.id === selectedJobId) ?? null;
-  // Applicant counts are mock/placeholder data (see mockApplicants.ts) and
-  // only cover jobs on the current page, since pagination is server-side.
   const pageApplicants = items.reduce(
     (sum, job) => sum + getMockApplicantCount(job.id),
     0,
