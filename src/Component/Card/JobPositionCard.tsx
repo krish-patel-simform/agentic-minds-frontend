@@ -1,5 +1,22 @@
 import { Trash2 } from "lucide-react";
-import type { JobPosition } from "../../types/jobPosition.type";
+import type { JobPosition, JobStatus } from "../../types/jobPosition.type";
+import { getMockApplicantCount } from "../../utils/mockApplicants";
+
+const STATUS_STYLES: Record<JobStatus, string> = {
+  draft: "bg-gray-100 text-gray-600",
+  open: "bg-green-50 text-green-600",
+  on_hold: "bg-amber-50 text-amber-600",
+  closed: "bg-slate-100 text-slate-600",
+  archived: "bg-rose-50 text-rose-500",
+};
+
+const STATUS_LABELS: Record<JobStatus, string> = {
+  draft: "Draft",
+  open: "Open",
+  on_hold: "On Hold",
+  closed: "Closed",
+  archived: "Archived",
+};
 
 interface JobCardProps {
   job: JobPosition;
@@ -14,6 +31,11 @@ const JobPositionCard = ({
   onClick,
   onDelete,
 }: JobCardProps) => {
+  const experienceRange =
+    job.min_experience_years === job.max_experience_years
+      ? `${job.min_experience_years} yrs`
+      : `${job.min_experience_years}-${job.max_experience_years} yrs`;
+
   return (
     <div
       onClick={onClick}
@@ -36,7 +58,7 @@ const JobPositionCard = ({
             </button>
           )}
           <span className="text-2xl font-bold text-indigo-900">
-            {job.applicants}
+            {getMockApplicantCount(job.id)}
           </span>
           <span className="text-[10px] uppercase text-gray-400 font-semibold leading-none">
             applicants
@@ -44,22 +66,24 @@ const JobPositionCard = ({
         </div>
       </div>
 
-      <div className="flex gap-2 mb-4">
-        {job?.tags?.map((tag) => (
+      <div className="flex gap-2 mb-4 flex-wrap">
+        {job.skills?.map((skill) => (
           <span
-            key={tag}
+            key={skill}
             className="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-medium"
           >
-            {tag}
+            {skill}
           </span>
         ))}
-        <span className="px-3 py-1 rounded-full bg-green-50 text-green-600 text-xs font-medium">
-          {job.status}
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-medium ${STATUS_STYLES[job.status]}`}
+        >
+          {STATUS_LABELS[job.status]}
         </span>
       </div>
 
       <p className="text-sm text-gray-500 mb-6 line-clamp-2 leading-relaxed">
-        {job.description}
+        {job.job_description || "No description provided."}
       </p>
 
       <div className="grid grid-cols-4 gap-2 border-t pt-4">
@@ -67,25 +91,31 @@ const JobPositionCard = ({
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Experience
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.experience}</p>
+          <p className="text-sm font-bold text-slate-700">{experienceRange}</p>
         </div>
         <div>
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Notice
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.noticePeriod}</p>
+          <p className="text-sm font-bold text-slate-700">
+            {job.expected_notice_period_days}d / {job.max_notice_period_days}d
+          </p>
         </div>
         <div>
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Questions
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.questions}</p>
+          <p className="text-sm font-bold text-slate-700">
+            {job.questions_to_ask}
+          </p>
         </div>
         <div>
           <p className="text-[10px] uppercase text-gray-400 font-bold mb-1">
             Interviewer
           </p>
-          <p className="text-sm font-bold text-slate-700">{job.interviewer}</p>
+          <p className="text-sm font-bold text-slate-700">
+            {job.interviewer_name || "—"}
+          </p>
         </div>
       </div>
     </div>

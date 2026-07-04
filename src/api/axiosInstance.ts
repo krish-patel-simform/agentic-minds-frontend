@@ -14,7 +14,7 @@ export class ApiError extends Error {
 }
 
 const axiosInstance = axios.create({
-  baseURL: config.baseURL,
+  baseURL: config.apiBaseURL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -23,7 +23,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (requestConfig: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("authToken");
+    // No login flow exists yet - fall back to a dev-only token from env
+    // until real auth is wired up.
+    const token = localStorage.getItem("authToken") || config.mockAuthToken;
     if (token) {
       requestConfig.headers.set("Authorization", `Bearer ${token}`);
     }
@@ -32,13 +34,25 @@ axiosInstance.interceptors.request.use(
   (error: AxiosError) => Promise.reject(error),
 );
 
+interface BackendErrorBody {
+  message?: string;
+  detail?: string | { loc: (string | number)[]; msg: string; type: string }[];
+}
+
+function extractErrorMessage(data: BackendErrorBody | undefined, status: number): string {
+  if (!data) return `Request failed with status ${status}`;
+  if (typeof data.detail === "string") return data.detail;
+  if (Array.isArray(data.detail) && data.detail.length > 0) {
+    return data.detail.map((item) => item.msg).join(", ");
+  }
+  return data.message ?? `Request failed with status ${status}`;
+}
+
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error: AxiosError<{ message?: string }>) => {
+  (error: AxiosError<BackendErrorBody>) => {
     if (error.response) {
-      const message =
-        error.response.data?.message ??
-        `Request failed with status ${error.response.status}`;
+      const message = extractErrorMessage(error.response.data, error.response.status);
       return Promise.reject(
         new ApiError(message, error.response.status, error.code),
       );
